@@ -3,7 +3,7 @@
     Public db As New ADODB.Connection
     Public rs As New ADODB.Recordset
     Public caminho = Application.StartupPath & "\Banco\moveis_ld1.mdb"
-    'testando testando push
+
     Sub conectar_banco()
         Try
             db = CreateObject("ADODB.Connection")
@@ -28,4 +28,3 @@
         End With
     End Sub
 End Module
-' Joel Viado
