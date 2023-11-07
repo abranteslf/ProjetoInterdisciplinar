@@ -1,30 +1,68 @@
-﻿Module Module1
-    Public diretorio, SQL As String
-    Public db As New ADODB.Connection
-    Public rs As New ADODB.Recordset
-    Public caminho = Application.StartupPath & "\Banco\moveis_ld1.mdb"
+﻿Imports System.Data.SqlClient
+Imports System.Data.SQLite
 
-    Sub conectar_banco()
+Module Module1
+
+    'Conexões com o banco de dados
+    Public dbCommand As String = ""
+    Public bindingSrc As BindingSource
+    Public dbName As String = "db_moveis.db"
+    Public dbPath As String = Application.StartupPath & "\" & dbName
+    Public conString As String = "Data Source=" & dbPath & ";Version=3"
+    Public connection As New SQLiteConnection(conString)
+    Public command As New SQLiteCommand("", connection)
+    'Fim das conexõescreate table tb_usuarios 
+
+    Sub logar(cpf, senha)
+        connection.Open()
         Try
-            db = CreateObject("ADODB.Connection")
-            db.Open("Provider=Microsoft.JET.OLEDB.4.0;Data Source=" & caminho)
+            If connection.State = ConnectionState.Open Then
+                command.Connection = connection
+                command.CommandText = "SELECT * FROM tb_usuarios WHERE cpf='" & cpf & "' AND senha='" & senha & "'"
+
+                Dim reader As SQLiteDataReader = command.ExecuteReader()
+
+                If reader.HasRows Then
+                    MsgBox("Login realizado com sucesso!")
+                    frm_cadastro_funcionarios.Show()
+                Else
+                    MsgBox("CPF ou senha inválidos!")
+                End If
+                reader.Close()
+            End If
         Catch ex As Exception
-            MsgBox("Erro de Conexão", MsgBoxStyle.Critical + vbOKOnly, "AVISO")
+            MsgBox("Erro de conexão!")
         End Try
+        connection.Close()
     End Sub
+
     Sub limpar_campos_login()
         With Form1
-            .txt_usuario.Clear()
+            .txt_cpf.Clear()
             .txt_senha.Clear()
         End With
     End Sub
-
 
     Sub limpar_campos_cadastro()
         With frm_cadastro_funcionarios
-            .txt_senha.Clear()
-            .txt_usuario.Clear()
-            .cmb_acesso.ResetText()
+            '.txt_senha.Clear()
+            '.txt_usuario.Clear()
+            '.cmb_acesso.ResetText()
         End With
     End Sub
 End Module
+
+'EXEMPLO DE READER
+
+'If connection.State = ConnectionState.Open Then
+'    command.Connection = connection 'por que preciso disso?
+'    command.CommandText = "select * from tb_usuarios"
+
+'    Dim rdr As SQLiteDataReader = command.ExecuteReader
+'    Using rdr
+'        While (rdr.Read())
+'            MsgBox((rdr.GetString(0) & rdr.GetString(1)))
+'        End While
+'    End Using
+'End If
+'connection.Close()
