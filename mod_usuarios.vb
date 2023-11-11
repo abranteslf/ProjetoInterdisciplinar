@@ -12,6 +12,7 @@ Module mod_usuarios
     Public connection As New SQLiteConnection(conString)
     Public command As New SQLiteCommand("", connection)
     'Fim das conexões
+    Public cpfLogado
 
     Sub logar(cpf As String, senha As String)
 
@@ -29,7 +30,9 @@ Module mod_usuarios
                         Using reader
                             If reader.HasRows Then
                                 MsgBox("Login realizado com sucesso!")
-                                frm_cadastro_funcionarios.Show()
+                                cpfLogado = cpf
+                                frm_menu_funcionario.Show()
+                                frm_login.Hide()
                             Else
                                 MsgBox("CPF ou senha inválidos!")
                                 limpar_campos_login()
@@ -152,6 +155,61 @@ Module mod_usuarios
         End Using
     End Sub
 
+    Sub alterar_senha(novaSenha)
+        Using connection As New SQLiteConnection(conString)
+            connection.Open()
+            Try
+                If connection.State = ConnectionState.Open Then
+                    Dim commandText As String = "UPDATE tb_usuarios SET senha = @novaSenha WHERE cpf = @cpfLogado"
+                    Using command As New SQLiteCommand(commandText, connection)
+                        command.Parameters.AddWithValue("@novaSenha", novaSenha)
+                        command.Parameters.AddWithValue("@cpfLogado", cpfLogado)
+                        command.ExecuteNonQuery()
+                    End Using
+                End If
+            Catch ex As SQLiteException
+                MsgBox("Erro de SQLite: " & ex.Message)
+            Catch ex As Exception
+                MsgBox("Erro: " & ex.Message)
+            End Try
+        End Using
+    End Sub
+
+    Function checar_senha(senha) As Boolean
+        Using connection As New SQLiteConnection(conString)
+            connection.Open()
+            Try
+                If connection.State = ConnectionState.Open Then
+                    Dim commandText As String = "SELECT senha FROM tb_usuarios WHERE cpf = @cpf"
+                    Using command As New SQLiteCommand(commandText, connection)
+                        command.Parameters.AddWithValue("@cpf", cpfLogado)
+                        Using reader As SQLiteDataReader = command.ExecuteReader
+                            If reader.HasRows Then
+                                reader.Read()
+                                If senha = reader.GetString(0) Then
+                                    Return True
+                                Else
+                                    Return False
+                                End If
+                            Else
+                                Return False
+                            End If
+                        End Using
+                    End Using
+                Else
+                    Return False
+                End If
+            Catch ex As SQLiteException
+                MsgBox("Erro de SQLite: " & ex.Message)
+                Return False
+            Catch ex As Exception
+                MsgBox("Erro: " & ex.Message)
+                Return False
+            End Try
+        End Using
+    End Function
+
+    'subs para limpar campos
     Sub limpar_campos_login()
         With frm_login
             .txt_cpf.Clear()
@@ -165,6 +223,14 @@ Module mod_usuarios
             .txt_nome.Clear()
             .txt_senha.Clear()
             .cmb_acesso.ResetText()
+        End With
+    End Sub
+
+    Sub limpar_campos_alterar_senha()
+        With frm_alterar_senha
+            .txt_senha.Clear()
+            .txt_nova_senha.Clear()
+            .txt_confirmar_senha.Clear()
         End With
     End Sub
 End Module

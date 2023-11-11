@@ -52,7 +52,7 @@ Partial Class frm_login
         'txt_cpf
         '
         Me.txt_cpf.Location = New System.Drawing.Point(82, 44)
-        Me.txt_cpf.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.txt_cpf.Margin = New System.Windows.Forms.Padding(2)
         Me.txt_cpf.Name = "txt_cpf"
         Me.txt_cpf.Size = New System.Drawing.Size(101, 20)
         Me.txt_cpf.TabIndex = 2
@@ -60,7 +60,7 @@ Partial Class frm_login
         'txt_senha
         '
         Me.txt_senha.Location = New System.Drawing.Point(82, 94)
-        Me.txt_senha.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.txt_senha.Margin = New System.Windows.Forms.Padding(2)
         Me.txt_senha.Name = "txt_senha"
         Me.txt_senha.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.txt_senha.Size = New System.Drawing.Size(101, 20)
@@ -69,14 +69,14 @@ Partial Class frm_login
         'btn_entrar
         '
         Me.btn_entrar.Location = New System.Drawing.Point(43, 146)
-        Me.btn_entrar.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btn_entrar.Margin = New System.Windows.Forms.Padding(2)
         Me.btn_entrar.Name = "btn_entrar"
         Me.btn_entrar.Size = New System.Drawing.Size(56, 19)
         Me.btn_entrar.TabIndex = 4
         Me.btn_entrar.Text = "Entrar"
         Me.btn_entrar.UseVisualStyleBackColor = True
         '
-        'Form1
+        'frm_login
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -86,8 +86,8 @@ Partial Class frm_login
         Me.Controls.Add(Me.txt_cpf)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.Name = "Form1"
+        Me.Margin = New System.Windows.Forms.Padding(2)
+        Me.Name = "frm_login"
         Me.Text = "Form1"
         Me.ResumeLayout(False)
         Me.PerformLayout()

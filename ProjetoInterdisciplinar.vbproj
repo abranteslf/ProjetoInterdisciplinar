@@ -145,6 +145,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frm_alterar_senha.Designer.vb">
+      <DependentUpon>frm_alterar_senha.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frm_alterar_senha.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frm_login.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -156,6 +162,12 @@
       <DependentUpon>frm_cadastro_funcionarios.vb</DependentUpon>
     </Compile>
     <Compile Include="frm_cadastro_funcionarios.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_menu_funcionario.Designer.vb">
+      <DependentUpon>frm_menu_funcionario.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frm_menu_funcionario.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="mod_usuarios.vb" />
@@ -176,11 +188,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="frm_alterar_senha.resx">
+      <DependentUpon>frm_alterar_senha.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frm_login.resx">
       <DependentUpon>frm_login.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_cadastro_funcionarios.resx">
       <DependentUpon>frm_cadastro_funcionarios.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_menu_funcionario.resx">
+      <DependentUpon>frm_menu_funcionario.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
