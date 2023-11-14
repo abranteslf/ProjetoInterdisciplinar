@@ -1,5 +1,6 @@
 ﻿Imports System.Data.SqlClient
 Imports System.Data.SQLite
+Imports System.Runtime.InteropServices
 
 Module mod_usuarios
 
@@ -28,10 +29,16 @@ Module mod_usuarios
                         Dim reader As SQLiteDataReader = command.ExecuteReader()
 
                         Using reader
+                            reader.Read()
                             If reader.HasRows Then
-                                MsgBox("Login realizado com sucesso!")
+                                If reader.GetString(3) = "admin" Then
+                                    MsgBox("Entrou como gerente!")
+                                    frm_menu_gerente.Show()
+                                Else
+                                    MsgBox("Entrou como funcionário!")
+                                    frm_menu_funcionario.Show()
+                                End If
                                 cpfLogado = cpf
-                                frm_menu_funcionario.Show()
                                 frm_login.Hide()
                             Else
                                 MsgBox("CPF ou senha inválidos!")
